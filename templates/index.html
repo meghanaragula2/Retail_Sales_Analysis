@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Sales Analytics Dashboard</title>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+            padding:20px;
+        }
+
+        h1{
+            text-align:center;
+            color:#333;
+            margin-bottom:30px;
+        }
+
+        .cards{
+            display:flex;
+            justify-content:space-around;
+            flex-wrap:wrap;
+            gap:20px;
+            margin-bottom:30px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+            width:250px;
+            text-align:center;
+        }
+
+        .card h2{
+            color:#007bff;
+        }
+
+        .chart{
+            background:white;
+            margin:20px 0;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        footer{
+            text-align:center;
+            margin-top:30px;
+            color:gray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📊 Retail Sales Analytics Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Sales</h3>
+            <h2>${{ total_sales }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Profit</h3>
+            <h2>${{ total_profit }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Orders</h3>
+            <h2>{{ total_orders }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Predicted Sales</h3>
+            <h2>${{ prediction }}</h2>
+        </div>
+
+    </div>
+
+    <div class="chart">
+        <div id="regionChart"></div>
+    </div>
+
+    <div class="chart">
+        <div id="categoryChart"></div>
+    </div>
+
+    <div class="chart">
+        <div id="monthlyChart"></div>
+    </div>
+
+    <script>
+
+        var graph1 = {{ graph1 | safe }};
+        Plotly.newPlot(
+            'regionChart',
+            graph1.data,
+            graph1.layout
+        );
+
+        var graph2 = {{ graph2 | safe }};
+        Plotly.newPlot(
+            'categoryChart',
+            graph2.data,
+            graph2.layout
+        );
+
+        var graph3 = {{ graph3 | safe }};
+        Plotly.newPlot(
+            'monthlyChart',
+            graph3.data,
+            graph3.layout
+        );
+
+    </script>
+
+    <footer>
+        Developed using Flask, Pandas, Plotly & Machine Learning
+    </footer>
+
+</body>
+</html>
